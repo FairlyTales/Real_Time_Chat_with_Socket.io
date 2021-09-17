@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.socket.io/socket.io-3.0.0.js"></script>
+  </head>
+  <body>
+    <p>
+      Chat status:
+      <span id="chatStatus"
+        >Offline. Try to reload the page and check status of the server</span
+      >
+    </p>
+    <form>
+      <label for="user">User Name</label>
+      <input id="user" placeholder="user name" required />
+
+      <label for="msg">Message</label>
+      <input id="msg" placeholder="message" required />
+
+      <button id="sendBtn">Send</button>
+    </form>
+
+    <ul id="chat-list"></ul>
+
+    <script>
+      const messageField = document.getElementById("msg");
+      const userField = document.getElementById("user");
+      const sendBtn = document.getElementById("sendBtn");
+      const chatList = document.getElementById("chat-list");
+      const chatStatus = document.getElementById("chatStatus");
+      // new WebSocket() won't  work with socket.io, we must use the io library
+      // which we adding through cdn
+      const socket = io("ws://localhost:3000");
+
+      socket.on("connect", () => {
+        chatStatus.innerText = "Online";
+      });
+
+      socket.on("disconnect", () => {
+        chatStatus.innerText =
+          "Offline. Try to reload the page and check status of the server";
+      });
+
+      socket.on("connect_error", () => {
+        chatStatus.innerText =
+          "Connection Error. Try to reload the page and check status of the server";
+      });
+
+      socket.on("message", (response) => {
+        const el = document.createElement("li");
+        el.innerHTML = response;
+        chatList.appendChild(el);
+      });
+
+      sendBtn.onclick = (e) => {
+        e.preventDefault();
+
+        const text = messageField.value;
+        const user = userField.value;
+        const date = new Date();
+        const time =
+          date.getUTCDate().toString() +
+          "." +
+          date.getUTCMonth().toString() +
+          "." +
+          date.getUTCFullYear().toString() +
+          " " +
+          date.getUTCHours().toString() +
+          ":" +
+          date.getUTCMinutes().toString();
+
+        socket.emit("message", {
+          user,
+          text,
+          time,
+        });
+      };
+    </script>
+  </body>
+</html>

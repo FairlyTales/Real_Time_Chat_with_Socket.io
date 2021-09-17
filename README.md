@@ -1,4 +1,4 @@
-# WebSockets_with_Socket.io
+# Real Time Chat with Socket.io
 Working with WebSockets using Socket.io
 
 ## How to launch a project

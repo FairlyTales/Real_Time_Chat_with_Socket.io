@@ -5,25 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://cdn.socket.io/socket.io-3.0.0.js"></script>
+    <style>
+      li {
+        padding-top: 20px;
+      }
+    </style>
   </head>
-  <body>
-    <p>
+  <body
+    style="
+      font-family: 'Roboto Light', sans-serif;
+      margin: 0;
+      height: 100vh;
+      background-color: gainsboro;
+      color: #282828;
+      font-size: 28px;
+    "
+  >
+    <p style="margin: 0; padding: 30px 30px">
       Chat status:
       <span id="chatStatus"
         >Offline. Try to reload the page and check status of the server</span
       >
     </p>
-    <form>
-      <label for="user">User Name</label>
-      <input id="user" placeholder="user name" required />
+    <form
+      style="
+        padding: 0 30px;
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <div>
+        <div>
+          <label
+            for="user"
+            style="cursor: pointer; display: block; margin-bottom: 10px"
+            >User Name</label
+          >
+          <input
+            id="user"
+            placeholder="Enter your name"
+            required
+            style="font-size: 28px; border-radius: 5px"
+          />
+        </div>
 
-      <label for="msg">Message</label>
-      <input id="msg" placeholder="message" required />
+        <div style="margin-top: 15px">
+          <label
+            for="msg"
+            style="cursor: pointer; display: block; margin-bottom: 10px"
+            >Message</label
+          >
+          <input
+            id="msg"
+            placeholder="Enter your message"
+            required
+            style="font-size: 28px; border-radius: 5px"
+          />
+        </div>
 
-      <button id="sendBtn">Send</button>
+        <div>
+          <button
+            id="sendBtn"
+            style="
+              margin-top: 30px;
+              font-size: 28px;
+              width: 100%;
+              cursor: pointer;
+              height: 50px;
+              border-radius: 5px;
+            "
+          >
+            Send
+          </button>
+        </div>
+      </div>
     </form>
 
-    <ul id="chat-list"></ul>
+    <ul
+      id="chat-list"
+      style="list-style: none; word-break: break-all; padding-right: 40px"
+    ></ul>
 
     <script>
       const messageField = document.getElementById("msg");
@@ -77,6 +140,9 @@
           text,
           time,
         });
+
+        messageField.value = "";
+        userField.value = "";
       };
     </script>
   </body>

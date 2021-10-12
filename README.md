@@ -1,5 +1,5 @@
 # Real Time Chat with Socket.io
-Working with WebSockets using Socket.io
+Working with WebSockets using <a href="https://socket.io/">Socket.io</a>
 
 ## How to launch a project
 - Open the `\server` directory and run `npm install` and `npm start` to launch the server side of the app.
